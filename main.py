@@ -1,33 +1,27 @@
 """
-This is a hello world add-on for DocumentCloud.
-
-It demonstrates how to write a add-on which can be activated from the
-DocumentCloud add-on system and run using Github Actions.  It receives data
-from DocumentCloud via the request dispatch and writes data back to
-DocumentCloud using the standard API
+This Addon is used to generate a graph/chart of
+upload frequency from a given user.
 """
 
 from documentcloud.addon import AddOn
 
 
-class HelloWorld(AddOn):
-    """An example Add-On for DocumentCloud."""
+class UploadGraph(AddOn):
 
     def main(self):
-        """The main add-on functionality goes here."""
         # fetch your add-on specific data
-        name = self.data.get("name", "world")
+        username = self.data.get("name", "world")
 
-        self.set_message("Hello World start!")
+        query = "+user:" + username
 
-        # add a hello note to the first page of each selected document
-        if self.documents:
-            for document in self.client.documents.list(id__in=self.documents):
-                document.annotations.create(f"Hello {name}!", 0)
-        elif self.query:
-            documents = self.client.documents.search(self.query)[:3]
-            for document in documents:
-                document.annotations.create(f"Hello {name}!", 0)
+        documents = self.client.documents.search(query)
+
+        document_dates = []
+
+        for document in documents:
+            document_dates.append(document.created_at)
+
+        
 
         with open("hello.txt", "w+") as file_:
             file_.write("Hello world!")
@@ -38,4 +32,4 @@ class HelloWorld(AddOn):
 
 
 if __name__ == "__main__":
-    HelloWorld().main()
+    UploadGraph().main()
