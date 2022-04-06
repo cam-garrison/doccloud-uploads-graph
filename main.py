@@ -43,8 +43,6 @@ class UploadGraph(AddOn):
         with open('useruploads.png', "rb") as file_:
             self.upload_file(file_)
 
-        print("uploaded - testing for git actions.")
-
         self.set_message("Uploads Graph end!")
 
 
