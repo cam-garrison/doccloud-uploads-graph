@@ -7,16 +7,15 @@ from documentcloud.addon import AddOn
 import pandas as pd
 import matplotlib
 
-class UploadGraph(AddOn):
 
+class UploadGraph(AddOn):
     def create_df(self, doc_dates):
         df = pd.DataFrame(doc_dates, columns=["datetime"])
         df["datetime"] = df["datetime"].astype("datetime64")
-        df['date'] = df['datetime'].dt.date
-        df = df.sort_values(by='date')
-        df.insert(0, 'count', range(1,1 + len(df)))
-        return df    
-
+        df["date"] = df["datetime"].dt.date
+        df = df.sort_values(by="date")
+        df.insert(0, "count", range(1, 1 + len(df)))
+        return df
 
     def main(self):
         # fetch your add-on specific data
@@ -32,15 +31,18 @@ class UploadGraph(AddOn):
             document_dates.append(str(document.created_at))
 
         df = self.create_df(doc_dates=document_dates)
-        lines = df.plot(y="count", kind='line', x="date",
-                title= username + ": Uploads Over Time",
-                figsize=(12,8))
-        
+        lines = df.plot(
+            y="count",
+            kind="line",
+            x="date",
+            title=username + ": Uploads Over Time",
+            figsize=(12, 8),
+        )
+
         fig = lines.get_figure()
-        fig.savefig('useruploads.png')
+        fig.savefig("useruploads.png")
 
-
-        with open('useruploads.png', "rb") as file_:
+        with open("useruploads.png", "rb") as file_:
             self.upload_file(file_)
 
         self.set_message("Uploads Graph end!")
