@@ -5,6 +5,7 @@ upload frequency from a given user.
 
 from documentcloud.addon import AddOn
 import pandas as pd
+import matplotlib
 
 class UploadGraph(AddOn):
 
@@ -28,7 +29,7 @@ class UploadGraph(AddOn):
         document_dates = []
 
         for document in documents:
-            document_dates.append(document.created_at)
+            document_dates.append(str(document.created_at))
 
         df = self.create_df(doc_dates=document_dates)
         lines = df.plot(y="count", kind='line', x="date",
