@@ -1,4 +1,4 @@
-python-documentcloud==3.0.4
+python-documentcloud==3.0.5
 requests
 pandas
 matplotlib
