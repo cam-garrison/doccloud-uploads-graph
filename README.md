@@ -1,9 +1,8 @@
 
 # DocumentCloud User Uploads Graph
 
-This repository contains an example Add-On for DocumentCloud.  It is designed
-to be copied and modified to allow one to easily write Add-Ons to bring custom
-functionality to DocumentCloud.
+This repository contains an Add-On for DocumentCloud which will create a graph
+(image of a graph) that has the number of uploads over time for a given username.
 
 ## Files
 
@@ -61,45 +60,6 @@ dependencies your Add-On has here.  By default we install the
 `python-documentcloud` API library and the `requests` HTTP request package.
 You may upgrade the `python-documentcloud` version when new releases come out
 in order to take advantage of new features.
-
-### .github/workflows/run-addon.yml
-
-This is the GitHub Actions configuration file for running the add-on.  It
-references a reusable workflow from the
-`MuckRock/documentcloud-addon-workflows` repository.  This workflow sets up
-python, installs dependencies and runs the `main.py` to start the Add-On. It
-accepts two inputs:
-* `timeout` - Number of minutes to time out.  The default is `5`.  You may
-  increase this if your add-on will run for longer than that.
-* `python-version` - The version of python you would like to use.  Defaults to `3.10`.
-
-To set an input:
-```yaml
-jobs:
-  Run-Add-On:
-    uses: MuckRock/documentcloud-addon-workflows/.github/workflows/update-config.yml@v1
-    with:
-      timeout: 30
-```
-
-It is recommended you use the reusable workflow in order to receive future
-improvements to the workflow.  If needed you may fork the reusable workflow and
-edit it as needed. If you do edit it, you should leave the first step in place,
-which uses the UUID as its name, to allow DocumentCloud to identify the run.
-
-It would be possible to make a similar workflow for other programming languages
-if one wanted to write Add-Ons in a language besides Python.
-
-### .github/workflows/update-config.yml
-
-This is the GitHub Actions configuration file for updating the configuration
-file.  It references a reusable workflow from the
-`MuckRock/documentcloud-addon-workflows` repository.  This workflow sends a
-`POST` request to DocumentCloud whenever a new `config.yaml` file is pushed to
-the repository.  It accepts one input:
-* `url` - The base URL for the DocumentCloud API.  The default is
-  "https://api.www.documentcloud.org/api/".  It should only be changed if you
-  are running your own instance of DocumentCloud.
 
 ### LICENSE
 
