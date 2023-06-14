@@ -15,5 +15,6 @@ properties:
     title: Username
     # a string is text
     type: string
-
+categories:
+  - statistical
 
