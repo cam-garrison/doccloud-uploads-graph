@@ -11,7 +11,7 @@ import matplotlib
 class UploadGraph(AddOn):
     def create_df(self, doc_dates):
         df = pd.DataFrame(doc_dates, columns=["datetime"])
-        df["datetime"] = df["datetime"].astype("datetime64")
+        df["datetime"] = pd.to_datetime(df["datetime"]).dt.tz_localize(None)
         df["date"] = df["datetime"].dt.date
         df = df.sort_values(by="date")
         df.insert(0, "count", range(1, 1 + len(df)))
@@ -19,9 +19,10 @@ class UploadGraph(AddOn):
 
     def main(self):
         # fetch your add-on specific data
-        username = self.data.get("name", "world")
-
-        query = "+user:" + username
+        user_id = self.data.get("user_id")
+        user = self.client.users.get(user_id)
+        user_name = user.username
+        query = "+user:" + str(user_id)
 
         documents = self.client.documents.search(query)
 
@@ -35,7 +36,7 @@ class UploadGraph(AddOn):
             y="count",
             kind="line",
             x="date",
-            title=username + ": Uploads Over Time",
+            title=user_name + ": Uploads Over Time",
             figsize=(12, 8),
         )
 

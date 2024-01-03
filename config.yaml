@@ -1,22 +1,14 @@
-# The title is the title of your Add-On
 title: User Upload Frequency Graph
-# The description will be shown above the form when activating the Add-On
-description: This add-on will generate a graph of user upload frequency.
-# Add-On specific instructions here. Optional
+description: This add-on will generate a graph that shows the upload frequency for a particular user. 
 instructions: ''
-# Type should always be object
 type: object
-# How does this add-on accept documents
-# If more than one type is specified, the user will be prompted to choose one
 documents: []
-# Properties are the fields for your form
 properties:
-  # the key is the name of the variable that will be returned to your code
-  name:
-    # the title is what will be shown as the form label
-    title: Username
-    # a string is text
-    type: string
+  user_id:
+    title: User ID
+    type: integer
+required:
+  - user_id
 categories:
   - statistical
 
