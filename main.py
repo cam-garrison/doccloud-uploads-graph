@@ -19,9 +19,9 @@ class UploadGraph(AddOn):
 
     def main(self):
         # fetch your add-on specific data
-        username = self.data.get("name", "world")
+        user_id = self.data.get("user_id")
 
-        query = "+user:" + username
+        query = "+user:" + user_id
 
         documents = self.client.documents.search(query)
 
@@ -35,7 +35,7 @@ class UploadGraph(AddOn):
             y="count",
             kind="line",
             x="date",
-            title=username + ": Uploads Over Time",
+            title=user_id + ": Uploads Over Time",
             figsize=(12, 8),
         )
 
