@@ -35,7 +35,7 @@ class UploadGraph(AddOn):
             y="count",
             kind="line",
             x="date",
-            title=user_id + ": Uploads Over Time",
+            title=str(user_id) + ": Uploads Over Time",
             figsize=(12, 8),
         )
 
