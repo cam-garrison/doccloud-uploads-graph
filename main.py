@@ -21,7 +21,7 @@ class UploadGraph(AddOn):
         # fetch your add-on specific data
         user_id = self.data.get("user_id")
 
-        query = "+user:" + user_id
+        query = "+user:" + str(user_id)
 
         documents = self.client.documents.search(query)
 
