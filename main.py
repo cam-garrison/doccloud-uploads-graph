@@ -11,7 +11,7 @@ import matplotlib
 class UploadGraph(AddOn):
     def create_df(self, doc_dates):
         df = pd.DataFrame(doc_dates, columns=["datetime"])
-        df["datetime"] = df["datetime"].astype("datetime64")
+        df["datetime"] = pd.to_datetime(df["datetime"]).dt.tz_localize(None)
         df["date"] = df["datetime"].dt.date
         df = df.sort_values(by="date")
         df.insert(0, "count", range(1, 1 + len(df)))
